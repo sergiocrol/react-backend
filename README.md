@@ -142,10 +142,10 @@ User model
   location - String
   favoritePills - [ObjectId<Pill>]
   favoriteUsers - [ObjectId<User>]
-  score - {type: String, default: 0}
+  score - {type: Number, default: 0}
   createdPills - [ObjectId<Pill>]
   userReferences - [{userId:{type: OnjectId<User>}, message: {type: String}}]
-  genre - {type: String, enum: []}
+  gender - {type: String, enum: []}
   isOnline - {type: Boolean, default: false}
   conversations - [ObjectId<Conversation>]
   lastConnection - Date
@@ -164,7 +164,7 @@ Pill model
    date - Date,
    rate - Number,
    reviewers - Number,
-   difficulty - {type: String, enum: []}
+   difficulty - {type: Number, default: 1}
    description - String
    topics - [String]
    numberTaken - Number,
@@ -182,8 +182,7 @@ Card model
   images - [{imageUrl: String, answer: [{String}]}]
   sound - {soundUrl: String, answer: [{String}]}
   sentence - {content: String, answer: [{String}]}
-  question - {content: String, possibleAnswer: [{String}], correctAnswer: String}
-  pair - [{originalWord: String, translatedWord: String}]
+  pairing - [{originalWord: String, translatedWord: String}]
 }
 ```
 
