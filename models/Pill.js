@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-import languages from '../helpers/languages.json';
+const languages = require('../helpers/languages');
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -12,6 +12,8 @@ const langArray = () => {
   return langArray;
 }
 
+const lang = langArray();
+
 const pillSchema = new Schema({
   name: {
     type: String,
@@ -19,13 +21,13 @@ const pillSchema = new Schema({
   },
   fromLanguage: {
     type: String,
-    enum: [langArray()],
+    enum: lang,
     default: 'English',
     required: true
   },
   toLanguage: {
     type: String,
-    enum: [langArray()],
+    enum: lang,
     default: 'English',
     required: true
   },

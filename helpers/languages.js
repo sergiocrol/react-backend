@@ -1,4 +1,6 @@
-{
+'use strict'
+
+const lang = {
   "aa": {
     "639-1": "aa",
     "639-2": "aar",
@@ -1492,3 +1494,5 @@
     "wikiUrl": "https://en.wikipedia.org/wiki/Zulu_language"
   }
 }
+
+module.exports = lang;

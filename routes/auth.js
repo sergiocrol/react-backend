@@ -11,7 +11,8 @@ const User = require('../models/User');
 const {
   isLoggedIn,
   isNotLoggedIn,
-  validationLoggin
+  validationLoggin,
+  validationSignup
 } = require('../helpers/middlewares');
 
 router.get('/me', isLoggedIn(), (req, res, next) => {
@@ -23,9 +24,9 @@ router.post(
   isNotLoggedIn(),
   validationLoggin(),
   async (req, res, next) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email });
       if (!user) {
         next(createError(404));
       } else if (bcrypt.compareSync(password, user.password)) {
@@ -43,18 +44,17 @@ router.post(
 router.post(
   '/signup',
   isNotLoggedIn(),
-  validationLoggin(),
+  validationSignup(),
   async (req, res, next) => {
-    const { username, password } = req.body;
-
+    const { name, email, password } = req.body;
     try {
-      const user = await User.findOne({ username }, 'username');
+      const user = await User.findOne({ email }, 'email');
       if (user) {
         return next(createError(422));
       } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({ username, password: hashPass });
+        const newUser = await User.create({ email, password: hashPass, name });
         req.session.currentUser = newUser;
         res.status(200).json(newUser);
       }
@@ -73,6 +73,18 @@ router.get('/private', isLoggedIn(), (req, res, next) => {
   res.status(200).json({
     message: 'This is a private message'
   });
+});
+
+router.put('/profile', isLoggedIn(), async (req, res, next) => {
+  const { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages } = req.body;
+  const newUser = { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages };
+  const id = req.session.currentUser._id;
+  try {
+    const user = await User.findByIdAndUpdate(id, { $set: newUser });
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

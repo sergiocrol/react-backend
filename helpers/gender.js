@@ -1,4 +1,6 @@
-[
+'use strict';
+
+const gender = [
   "Female",
   "Male",
   "Agender",
@@ -74,3 +76,5 @@
   "Two-spirit person",
   "Woman"
 ]
+
+module.exports = gender;

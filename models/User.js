@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-import languages from '../helpers/languages.json';
-import gender from '../helpers/gender.json';
+const languages = require('../helpers/languages');
+const gender = require('../helpers/gender')
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -12,6 +12,8 @@ const langArray = () => {
   }
   return langArray;
 }
+
+const lang = langArray();
 
 const userSchema = new Schema({
   name: {
@@ -36,7 +38,7 @@ const userSchema = new Schema({
   nativeLanguage: [
     {
       type: String,
-      enum: [langArray()],
+      enum: lang,
       default: 'English'
     }
   ],
@@ -44,12 +46,11 @@ const userSchema = new Schema({
     {
       lang: {
         type: String,
-        enum: [langArray()],
+        enum: lang,
         default: 'English'
       },
       rate: {
-        type: Number,
-        default: 1
+        type: String
       }
     }
   ],
@@ -57,12 +58,11 @@ const userSchema = new Schema({
     {
       lang: {
         type: String,
-        enum: [langArray()],
+        enum: lang,
         default: 'English'
       },
       rate: {
-        type: Number,
-        default: 1
+        type: String
       }
     }
   ],
@@ -111,7 +111,7 @@ const userSchema = new Schema({
   ],
   gender: {
     type: String,
-    enum: [gender]
+    enum: gender
   }
 }, {
     timestamps: {
