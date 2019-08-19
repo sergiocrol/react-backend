@@ -7,6 +7,7 @@ const router = express.Router();
 
 const Pill = require('../models/Pill');
 const User = require('../models/User');
+const Card = require('../models/Card');
 
 const {
   isLoggedIn,
@@ -17,7 +18,7 @@ const {
 
 router.get(
   '/pill/:id',
-  //isLoggedIn(),
+  isLoggedIn(),
   async (req, res, next) => {
     const { id } = req.params;
     console.log(req.params)
@@ -32,7 +33,7 @@ router.get(
 
 router.post(
   '/new',
-  //isLoggedIn(),
+  isLoggedIn(),
   async (req, res, next) => {
     const { name, fromLanguage, toLanguage, author, date, difficulty, description, topics } = req.body;
     try {
@@ -44,5 +45,20 @@ router.post(
     }
   }
 );
+
+router.post(
+  '/card/image',
+  isLoggedIn(),
+  async (req, res, next) => {
+    const { type, pillId, images } = req.body;
+    try {
+      const newCard = await Card.create({ type, pillId, images });
+      await Pill.findByIdAndUpdate(pillId, { $push: { cards: newCard._id } })
+      res.status(200).json(newCard);
+    } catch (error) {
+      next(error);
+    }
+  }
+)
 
 module.exports = router;
