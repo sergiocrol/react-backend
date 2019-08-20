@@ -19,6 +19,17 @@ router.get('/me', isLoggedIn(), (req, res, next) => {
   res.json(req.session.currentUser);
 });
 
+router.get('/current', isLoggedIn(), async (req, res, next) => {
+  try {
+    const _id = req.session.currentUser._id;
+    const user = await User.findOne({ _id }).populate('createdPills');
+    console.log(user);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post(
   '/login',
   isNotLoggedIn(),

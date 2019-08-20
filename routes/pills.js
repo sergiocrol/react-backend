@@ -21,9 +21,10 @@ router.get(
   isLoggedIn(),
   async (req, res, next) => {
     const { id } = req.params;
+    const _id = id;
     console.log(req.params)
     try {
-      const pill = await Pill.findById(id);
+      const pill = await Pill.findOne({ _id }).populate('author').populate('cards');
       res.status(200).json(pill);
     } catch (error) {
       next(error);
