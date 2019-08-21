@@ -60,7 +60,8 @@ const pillSchema = new Schema({
     }
   ],
   numberTaken: {
-    type: Number
+    type: Number,
+    default: 0
   },
   numberOfCards: {
     type: Number,

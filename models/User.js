@@ -103,6 +103,18 @@ const userSchema = new Schema({
       ref: 'Pill'
     }
   ],
+  takenPills: [
+    {
+      pill: {
+        type: ObjectId,
+        ref: 'Pill'
+      },
+      score: {
+        type: Number,
+        default: 0
+      }
+    }
+  ],
   userReferences: [
     {
       userId: { type: ObjectId, ref: 'User' },
