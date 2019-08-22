@@ -75,7 +75,7 @@ router.put(
       next(error);
     }
   }
-)
+);
 
 router.put(
   '/pill/:id/rate',
@@ -91,6 +91,34 @@ router.put(
       next(error);
     }
   }
-)
+);
+
+router.get(
+  '/rate',
+  async (req, res, next) => {
+    console.log('paso por back');
+    try {
+      const pills = await Pill.find({});
+      res.status(200).json(pills);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  '/level',
+  async (req, res, next) => {
+    const { difficulty, fromLanguage, toLanguage, topics } = req.body;
+    console.log(difficulty, fromLanguage, toLanguage, topics)
+    try {
+      const pills = topics === '' ? await Pill.find({ difficulty, fromLanguage, toLanguage }).populate('author')
+        : await Pill.find({ difficulty, fromLanguage, toLanguage, topics: { "$regex": topics, "$options": "i" } }).populate('author');
+      res.status(200).json(pills);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;
