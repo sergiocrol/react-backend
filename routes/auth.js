@@ -22,8 +22,7 @@ router.get('/me', isLoggedIn(), (req, res, next) => {
 router.get('/current', isLoggedIn(), async (req, res, next) => {
   try {
     const _id = req.session.currentUser._id;
-    const user = await User.findOne({ _id }).populate('createdPills');
-    console.log(user);
+    const user = await User.findOne({ _id }).populate('createdPills').populate('takenPills.pill');
     res.status(200).json(user);
   } catch (error) {
     next(error);
