@@ -226,10 +226,10 @@ The url to your repository and to your deployed project
 
 [Server repository Link](https://github.com/screeeen/project-server)
 
-[Deployed App Link](http://heroku.com)
+[Deployed App Link](https://hitza-97861.firebaseapp.com)
 
 ### Slides
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://docs.google.com/presentation/d/1nzKqY-pguV4AyeHnDMuPeC0q52E8f3B4CeDx6Svb9WE/edit?usp=sharing)

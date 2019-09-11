@@ -76,7 +76,8 @@ const userSchema = new Schema({
     }
   ],
   age: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   location: {
     type: String
@@ -126,11 +127,11 @@ const userSchema = new Schema({
     enum: gender
   }
 }, {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    },
-  });
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  },
+});
 
 const User = mongoose.model('User', userSchema);
 
