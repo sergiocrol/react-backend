@@ -22,7 +22,6 @@ router.get(
   async (req, res, next) => {
     const { id } = req.params;
     const _id = id;
-    console.log(req.params)
     try {
       const pill = await Pill.findOne({ _id }).populate('author').populate('cards');
       res.status(200).json(pill);
@@ -96,7 +95,6 @@ router.put(
 router.get(
   '/rate',
   async (req, res, next) => {
-    console.log('paso por back');
     try {
       const pills = await Pill.find({});
       res.status(200).json(pills);
@@ -110,7 +108,6 @@ router.post(
   '/level',
   async (req, res, next) => {
     const { difficulty, fromLanguage, toLanguage, topics } = req.body;
-    console.log(difficulty, fromLanguage, toLanguage, topics)
     try {
       const pills = topics === '' ? await Pill.find({ difficulty, fromLanguage, toLanguage }).populate('author')
         : await Pill.find({ difficulty, fromLanguage, toLanguage, topics: { "$regex": topics, "$options": "i" } }).populate('author');

@@ -86,8 +86,8 @@ router.get('/private', isLoggedIn(), (req, res, next) => {
 });
 
 router.put('/profile', isLoggedIn(), async (req, res, next) => {
-  const { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages } = req.body;
-  const newUser = { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages };
+  const { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages, description } = req.body;
+  const newUser = { name, profileImage, location, age, gender, nativeLanguage, spokenLanguages, learningLanguages, description };
   const id = req.session.currentUser._id;
   try {
     const user = await User.findByIdAndUpdate(id, { $set: newUser });

@@ -20,7 +20,6 @@ router.put(
   isLoggedIn(),
   async (req, res, next) => {
     const { score, pillId } = req.body;
-    console.log(score)
     const _id = req.session.currentUser._id;
     try {
       let user = await User.findById(_id);
