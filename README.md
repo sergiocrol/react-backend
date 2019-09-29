@@ -142,10 +142,10 @@ User model
   location - String
   favoritePills - [ObjectId<Pill>]
   favoriteUsers - [ObjectId<User>]
-  score - {type: Number, default: 0}
+  score - {type: String, default: 0}
   createdPills - [ObjectId<Pill>]
   userReferences - [{userId:{type: OnjectId<User>}, message: {type: String}}]
-  gender - {type: String, enum: []}
+  genre - {type: String, enum: []}
   isOnline - {type: Boolean, default: false}
   conversations - [ObjectId<Conversation>]
   lastConnection - Date
@@ -164,7 +164,7 @@ Pill model
    date - Date,
    rate - Number,
    reviewers - Number,
-   difficulty - {type: Number, default: 1}
+   difficulty - {type: String, enum: []}
    description - String
    topics - [String]
    numberTaken - Number,
@@ -182,7 +182,8 @@ Card model
   images - [{imageUrl: String, answer: [{String}]}]
   sound - {soundUrl: String, answer: [{String}]}
   sentence - {content: String, answer: [{String}]}
-  pairing - [{originalWord: String, translatedWord: String}]
+  question - {content: String, possibleAnswer: [{String}], correctAnswer: String}
+  pair - [{originalWord: String, translatedWord: String}]
 }
 ```
 
@@ -215,21 +216,12 @@ Card model
 
 ### Trello/Kanban
 
-[Link to your trello board](https://trello.com/b/QWW8Vi3x/react-app) 
-or picture of your physical board
+[Trello board](https://trello.com/b/QWW8Vi3x/react-app) 
 
 ### Git
-
-The url to your repository and to your deployed project
-
-[Client repository Link](https://github.com/screeeen/project-client)
-
-[Server repository Link](https://github.com/screeeen/project-server)
 
 [Deployed App Link](https://hitza-97861.firebaseapp.com)
 
 ### Slides
-
-The url to your presentation slides
 
 [Slides Link](https://docs.google.com/presentation/d/1nzKqY-pguV4AyeHnDMuPeC0q52E8f3B4CeDx6Svb9WE/edit?usp=sharing)
