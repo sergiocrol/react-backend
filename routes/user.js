@@ -32,5 +32,29 @@ router.put(
   }
 );
 
+router.get('/users',
+  isLoggedIn(),
+  async (req, res, next) => {
+    try {
+      const users = await User.find().sort({ score: -1 });
+      res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
+  })
+
+router.get('/user/:id',
+  isLoggedIn(),
+  async (req, res, next) => {
+    const id = req.params.id;
+    console.log(id)
+    try {
+      const user = await User.findById(id);
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  })
+
 
 module.exports = router;

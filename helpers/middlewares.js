@@ -6,7 +6,7 @@ exports.isLoggedIn = () => (req, res, next) => {
   if (req.session.currentUser) {
     next();
   } else {
-    next(createError(401));
+    res.status(401).json({ error: 'unhautorized' })
   }
 };
 
@@ -20,7 +20,6 @@ exports.isNotLoggedIn = () => (req, res, next) => {
 
 exports.validationLoggin = () => (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body)
   if (!email || !password) {
     next(createError(422));
   } else {
@@ -30,7 +29,6 @@ exports.validationLoggin = () => (req, res, next) => {
 
 exports.validationSignup = () => (req, res, next) => {
   const { email, password, rePassword, name } = req.body;
-  console.log("res: " + password !== rePassword)
   if (!email || !password || !rePassword || !name || password !== rePassword) {
     next(createError(422));
   } else {
